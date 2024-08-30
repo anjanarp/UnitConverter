@@ -3,8 +3,11 @@ An iOS application built using SwiftUI that allows users to convert between diff
 
 ## Features
 **Temperature Conversion:** Convert between Celsius, Fahrenheit, and Kelvin.
+
 **Length Conversion:** Convert between meters, kilometers, feet, yards, and miles.
+
 **Time Conversion:** Convert between seconds, minutes, hours, and days.
+
 **Volume Conversion:** Convert between milliliters, liters, cups, pints, and gallons.
 
 ## Acknowledgements
