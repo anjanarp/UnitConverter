@@ -29,26 +29,148 @@ struct ContentView: View {
     @State private var tempInputAmt: Double = 0.0
     @State private var tempOutputUnit = "°C"
     
+    var tempOutputAmt: Double {
+        var celsius: Double {
+            switch tempInputUnit {
+            case "°C":
+                return tempInputAmt
+            case "°F":
+                return (tempInputAmt - 32) * 5/9
+            case "K":
+                return tempInputAmt - 273.15
+            default:
+                return tempInputAmt
+            }
+        }
+        
+        switch tempOutputUnit {
+        case "°C":
+            return celsius
+        case "°F":
+            return (celsius * 9/5) + 32
+        case "K":
+            return celsius + 273.15
+        default:
+            return celsius
+        }
+    }
+
+    
     
     // Length Properties
     @State private var lengthInputUnit = "m"
     let lengthUnits = ["m", "km", "ft", "yd", "mi"]
     @State private var lengthInputAmt: Double = 0.0
     @State private var lengthOutputUnit = "m"
-    
-    
+    var lengthOutputAmt: Double {
+        var meters: Double {
+            switch lengthInputUnit {
+            case "m":
+                return lengthInputAmt
+            case "km":
+                return lengthInputAmt * 1000
+            case "ft":
+                return lengthInputAmt * 0.3048
+            case "yd":
+                return lengthInputAmt * 0.9144
+            case "mi":
+                return lengthInputAmt * 1609.34
+            default:
+                return lengthInputAmt
+            }
+        }
+        
+        switch lengthOutputUnit {
+        case "m":
+            return meters
+        case "km":
+            return meters / 1000
+        case "ft":
+            return meters / 0.3048
+        case "yd":
+            return meters / 0.9144
+        case "mi":
+            return meters / 1609.34
+        default:
+            return meters
+        }
+    }
     
     // Time Properties
     @State private var timeInputUnit = "sec"
     let timeUnits = ["sec", "min", "hr", "day"]
     @State private var timeInputAmt: Double = 0.0
     @State private var timeOutputUnit = "sec"
+    var timeOutputAmt: Double {
+        var seconds: Double {
+            switch timeInputUnit {
+            case "s":
+                return timeInputAmt
+            case "min":
+                return timeInputAmt * 60
+            case "h":
+                return timeInputAmt * 3600
+            case "d":
+                return timeInputAmt * 86400
+            default:
+                return timeInputAmt
+            }
+        }
+        
+        switch timeOutputUnit {
+        case "s":
+            return seconds
+        case "min":
+            return seconds / 60
+        case "hr":
+            return seconds / 3600
+        case "day":
+            return seconds / 86400
+        default:
+            return seconds
+        }
+    }
+
     
     // Volume Properties
     @State private var volumeInputUnit = "mL"
     let volumeUnits = ["mL", "L", "cups", "pt", "gal"]
     @State private var volumeInputAmt: Double = 0.0
     @State private var volumeOutputUnit = "mL"
+    var volumeOutputAmt: Double {
+        var milliliters: Double {
+            switch volumeInputUnit {
+            case "mL":
+                return volumeInputAmt
+            case "L":
+                return volumeInputAmt * 1000
+            case "cups":
+                return volumeInputAmt * 240
+            case "pt":
+                return volumeInputAmt * 473.176
+            case "gal":
+                return volumeInputAmt * 3785.41
+            default:
+                return volumeInputAmt
+            }
+        }
+        
+        switch volumeOutputUnit {
+        case "mL":
+            return milliliters
+        case "L":
+            return milliliters / 1000
+        case "cups":
+            return milliliters / 240
+        case "pt":
+            return milliliters / 473.176
+        case "gal":
+            return milliliters / 3785.41
+        default:
+            return milliliters
+        }
+    }
+
 
     
     var body: some View {
@@ -84,7 +206,7 @@ struct ContentView: View {
                                 .padding(.bottom, 5)
                                 
                                 HStack {
-                                    Text("Output Amount: \(tempOutputAmt)")
+                                    Text("Output Amount: \(String(format: "%.2f", tempOutputAmt))")
                                         .font(.subheadline)
                                         .frame(maxWidth: .infinity, alignment: .leading)
                                 }
@@ -129,7 +251,7 @@ struct ContentView: View {
                                 .padding(.bottom, 5)
                                 
                                 HStack {
-                                    Text("Output Amount:")
+                                    Text("Output Amount: \(String(format: "%.2f", lengthOutputAmt))")
                                         .font(.subheadline)
                                         .frame(maxWidth: .infinity, alignment: .leading)
                                 }
@@ -174,7 +296,7 @@ struct ContentView: View {
                                 .padding(.bottom, 5)
                                 
                                 HStack {
-                                    Text("Output Amount:")
+                                    Text("Output Amount: \(String(format: "%.2f", timeOutputAmt))")
                                         .font(.subheadline)
                                         .frame(maxWidth: .infinity, alignment: .leading)
                                 }
@@ -218,7 +340,7 @@ struct ContentView: View {
                                 .padding(.bottom, 5)
                                 
                                 HStack {
-                                    Text("Output Amount:")
+                                    Text("Output Amount: \(String(format: "%.2f", volumeOutputAmt))")
                                         .font(.subheadline)
                                         .frame(maxWidth: .infinity, alignment: .leading)
                                 }
